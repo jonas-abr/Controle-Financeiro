@@ -1,45 +1,37 @@
 import React, {Component} from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Button } from 'react-native'; 
 // Os estilos no React Native não é em pixels, mas sim em pontos. 
 // precisa ter o source e style da width e heigth para ser exibida a imagem.
-//
+// As props são estaticas. Por isso existem as states
+// States = Mutaveis. 
 
 class App extends Component{
-  render(){
-    let nome = 'jonas';
   
+    constructor(props){
+      super(props);
+      this.state = {
+        nome: ''
+      };
+      // Precisa colcoar esse código para que seja possível que a função acesse as propriedades desse componente
+      this.entrar = this.entrar.bind(this);
+    }
 
-    return(
-      <View>
-        <Text style={{color: 'blue', fontSize: 25, margin: 15}}>
-          Grandes Celebridades da Tecnologia
-        </Text>
-        <Text style={{color: 'red', fontSize: 25}}>
-          1 - Steve Jobs
-        </Text>
-        <Text style={{ fontSize: 30}}>{nome}</Text>
-        <Jobs Largura={100} altura={200} fulano="steve jobs"/>
+    entrar(nome){
+      this.setState({
+        nome: nome
+      })
+    }
 
-      </View>
-    );
+    render(){
+      return(
+        <View style={{marginTop: 20}}>
+
+          <Button title="Entrar" onPress={ ()=> this.entrar('Matheus')} />
+          <Text style={{ fontSize: 23, color: 'red', textAlign: 'center'}}>  
+              {this.state.nome}
+          </Text>
+        </View>
+      );  
+    }
   }
-}
-
 export default App;
-
-class Jobs extends Component {
-  render(){
-
-    let img = 'https://sujeitoprogramador.com/steve.png';
-    return(
-      <View>
-        <Image
-          source={{uri: img}}
-          style={{ width: this.props.Largura, height: this.props.altura}}
-         />
-         <Text> {this.props.fulano}</Text>
-      </View>
-    );
-  }
-
-}
